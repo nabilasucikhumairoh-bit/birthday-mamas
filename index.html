@@ -1,558 +1,321 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f8efdc">
 <title>For Mamas ♡</title>
-
 <style>
-:root {
-  --cream:#f8efdc;
-  --paper:#fff9ec;
-  --brown:#49382d;
-  --rose:#c98279;
-  --rust:#a8523c;
-  --green:#6f7657;
-  --sand:#e9d7b7;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0; background:#d7c5a5; color:var(--brown);
-  font-family:Georgia,serif; text-align:center;
-}
-button {
-  font:inherit; padding:12px 19px; margin:5px;
-  border:1px solid var(--rust); background:var(--rust);
-  color:white; cursor:pointer; transition:.2s;
-}
-button:hover { transform:translateY(-2px); }
-button:focus-visible { outline:3px solid var(--green); }
-.page {
-  max-width:900px; margin:16px auto; padding:clamp(16px,4vw,34px);
-  background:var(--cream); box-shadow:0 12px 35px #49382d20;
-  overflow:hidden;
-}
-.hero { padding:65px 8px 45px; }
-.stamp {
-  display:inline-block; padding:8px 14px;
-  border:1px solid var(--rust); transform:rotate(-4deg);
-  font-size:11px; letter-spacing:3px;
-}
-.label {
-  color:var(--green); letter-spacing:3px;
-  font-size:11px; text-transform:uppercase;
-}
-h1 {
-  color:var(--rust); font-size:clamp(42px,10vw,76px);
-  font-weight:normal; line-height:1; margin:24px 0;
-}
-h1 span {
-  display:block; color:var(--brown); font-size:.43em;
-  font-style:italic; margin-top:18px;
-}
-h2 { font-weight:normal; font-size:clamp(25px,5vw,34px); }
-p { line-height:1.8; }
-.intro { max-width:480px; margin:20px auto; color:#826d58; }
-section { padding:45px 4px; border-top:1px dashed #cbb695; }
-.small { color:#826d58; font-size:12px; }
-.hidden { display:none!important; }
-
-/* COUNTDOWN */
-.countdown {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  gap:9px; max-width:500px; margin:24px auto;
-}
-.countbox { padding:14px 4px; background:var(--paper); }
-.countbox strong {
-  display:block; font-size:clamp(23px,5vw,34px);
-  font-weight:normal; color:var(--rust);
-}
-.countbox span { font-size:10px; letter-spacing:1px; }
-
-/* POLAROID GALLERY */
-.memories {
-  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px; max-width:620px; margin:25px auto;
-}
-.polaroid {
-  background:white; padding:8px 8px 15px; color:var(--brown);
-  box-shadow:0 6px 18px #49382d20; border:0; min-width:0;
-}
-.polaroid:nth-child(odd) { transform:rotate(-2deg); }
-.polaroid:nth-child(even) { transform:rotate(2deg); }
-.polaroid img {
-  display:block; width:100%; height:clamp(135px,28vw,215px);
-  object-fit:cover; background:#e9d7b7;
-}
-.caption { display:block; padding-top:12px; font-size:13px; font-style:italic; }
-
-/* LETTER */
-.envelope { max-width:490px; margin:auto; padding:22px; background:var(--sand); }
-.letter {
-  display:none; text-align:left; white-space:pre-line;
-  line-height:1.9; padding:22px; margin-top:20px;
-  background:var(--paper);
-}
-.letter.show { display:block; }
-.signature { text-align:right; color:var(--rust); font-style:italic; }
-.cursor { animation:blink .7s steps(2,start) infinite; }
-
-/* MUSIC */
-.music { max-width:490px; margin:auto; padding:22px; background:#eee1c8; }
-.vinyl {
-  display:grid; place-items:center; width:90px; height:90px;
-  margin:0 auto 15px; border-radius:50%; font-size:36px;
-  color:var(--cream);
-  background:radial-gradient(circle,#c98279 0 12%,#49382d 13% 20%,#25201c 21% 60%,#49382d 61% 65%,#201b18 66%);
-}
-.playing { animation:spin 4s linear infinite; }
-input[type=file] { display:block; width:100%; margin-top:10px; font-size:12px; }
-
-/* CAKE */
-.cake { width:210px; max-width:80%; margin:28px auto; }
-.candles { display:flex; justify-content:center; gap:22px; height:65px; align-items:end; }
-.candle {
-  position:relative; height:42px; width:10px;
-  background:repeating-linear-gradient(135deg,#fff1d6 0 5px,#c98279 5px 10px);
-}
-.flame {
-  position:absolute; top:-21px; left:-2px; width:13px; height:20px;
-  background:#ffbd50; border-radius:50% 50% 35% 35%;
-  animation:flicker .6s infinite alternate;
-}
-.flame.out { display:none; }
-.icing {
-  height:30px; background:#f4d2bd;
-  border-radius:12px 12px 6px 6px; border-bottom:7px dotted var(--rose);
-}
-.cake-body {
-  height:65px;
-  background:repeating-linear-gradient(90deg,#a8523c 0 25px,#c98279 25px 50px);
-  border-radius:0 0 10px 10px;
-}
-.plate { height:12px; background:#d3b993; border-radius:50%; margin-top:3px; }
-
-/* SECRET */
-.secret {
-  max-width:490px; margin:20px auto; padding:24px;
-  background:var(--paper); line-height:1.9;
-}
-.secret.show { display:block; }
-
-/* OPENING */
-.opening {
-  position:fixed; inset:0; z-index:50;
-  display:flex; align-items:center; justify-content:center;
-  padding:18px; background:#d7c5a5;
-  transition:opacity .7s,visibility .7s;
-}
-.opening.gone { opacity:0; visibility:hidden; pointer-events:none; }
-.opening-card {
-  width:100%; max-width:520px; padding:38px 20px;
-  background:var(--cream); box-shadow:0 12px 35px #49382d30;
-}
-.envelope-icon { display:block; font-size:68px; animation:bob 2s infinite; }
-
-/* HEARTS & PHOTO LIGHTBOX */
-#hearts { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:20; }
-.heart { position:absolute; bottom:-30px; animation:float 4s linear forwards; }
-.lightbox {
-  position:fixed; inset:0; z-index:40; padding:20px;
-  background:#241b18e8; display:none;
-  align-items:center; justify-content:center;
-}
-.lightbox.show { display:flex; }
-.lightbox img {
-  max-width:90vw; max-height:75vh; object-fit:contain;
-  background:white; padding:8px;
-}
-.close-lightbox { position:absolute; top:8px; right:8px; font-size:24px; }
-footer { padding:30px 5px; border-top:1px dashed #cbb695; color:#826d58; line-height:1.9; }
-
-@keyframes spin { to { transform:rotate(360deg); } }
-@keyframes flicker { to { transform:rotate(8deg) scale(1.1); } }
-@keyframes float { to { transform:translateY(-110vh) rotate(35deg); opacity:0; } }
-@keyframes blink { to { visibility:hidden; } }
-@keyframes bob { 50% { transform:translateY(-7px) rotate(3deg); } }
-
-@media(max-width:520px) {
-  body { background:var(--cream); }
-  .page { margin:0; padding:14px; box-shadow:none; }
-  .hero { padding:50px 3px 40px; }
-  section { padding:35px 0; }
-  .memories { gap:12px; }
-  .polaroid { padding:7px 7px 13px; }
-  .caption { font-size:12px; }
-  .countdown { gap:5px; }
-  .countbox { padding:12px 2px; }
-  .countbox span { font-size:9px; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { animation:none!important; scroll-behavior:auto!important; }
-}
+:root{--cream:#f8efdc;--paper:#fffaf0;--brown:#49382d;--rose:#c98279;--rust:#a8523c;--green:#6f7657;--ink:#49382d;--muted:#8b796a;--line:#e7d7bd;--shadow:0 18px 45px #49382d18}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif;min-height:100vh;background-image:radial-gradient(#a8523c12 .7px,transparent .7px);background-size:9px 9px}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--rust);outline-offset:3px}.topline{height:5px;background:linear-gradient(90deg,var(--green),var(--rose),var(--rust))}.site-head{text-align:center;padding:22px 16px 12px}.eyebrow,.chapter-label{font:10px/1.5 Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--rust)}.brand{font-size:clamp(25px,5vw,38px);margin:7px 0 4px;font-weight:normal}.head-note{font-size:13px;color:var(--muted);font-style:italic;margin:0}.book-wrap{width:min(100% - 28px,820px);margin:16px auto 30px}.book{position:relative;background:var(--paper);border:1px solid #e3d1b5;border-radius:5px 14px 14px 5px;box-shadow:var(--shadow);min-height:620px;overflow:hidden}.book:before{content:"";position:absolute;left:22px;top:0;bottom:0;width:1px;background:#d8bda0aa}.book:after{content:"";position:absolute;left:27px;top:0;bottom:0;width:1px;background:#f0dfc7}.page{display:none;position:relative;z-index:1;padding:42px clamp(28px,7vw,72px) 30px clamp(43px,8vw,82px);min-height:620px;animation:appear .35s ease}.page.active{display:flex;flex-direction:column}@keyframes appear{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}.page-num{position:absolute;right:22px;top:19px;font-size:12px;color:#b39a7f;font-style:italic}.page h2{font-weight:normal;font-size:clamp(27px,5vw,42px);line-height:1.12;margin:10px 0 16px}.page h3{font-weight:normal;font-size:22px;margin:10px 0}.lead{font-size:16px;line-height:1.85;color:#665346}.center{text-align:center;align-items:center}.center .lead{max-width:500px}.stamp{width:94px;height:94px;border:1px solid var(--rose);border-radius:50%;display:grid;place-items:center;color:var(--rust);font-size:39px;margin:22px auto;transform:rotate(-9deg);background:#c982790b}.rule{height:1px;background:var(--line);margin:20px 0;width:100%}.hand{font-style:italic;color:var(--rust);font-size:19px}.btn{border:1px solid var(--brown);background:var(--brown);color:#fff7e9;border-radius:30px;padding:12px 19px;font-size:13px;letter-spacing:.4px;transition:.2s}.btn:hover{background:var(--rust);border-color:var(--rust);transform:translateY(-1px)}.btn.secondary{background:transparent;color:var(--brown)}.btn.secondary:hover{color:white}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:auto;padding-top:26px}.page-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px auto 0;width:min(100% - 28px,820px)}.navbtn{border:1px solid #cbb79b;background:#f9f0df;color:var(--brown);border-radius:30px;padding:10px 16px;font-size:12px}.navbtn:disabled{opacity:.35;cursor:not-allowed}.dots{display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap}.dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--rose);background:transparent;padding:0}.dot.active{background:var(--rose);transform:scale(1.2)}.page-count{font:11px Arial,sans-serif;color:var(--muted);white-space:nowrap}.menu-toggle{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:18px auto 0;width:min(100% - 28px,820px)}.menu-pill{border:1px solid #dfcdb2;background:#fff8eb;color:#796252;padding:8px 11px;border-radius:20px;font:11px Arial,sans-serif}.menu-pill.active{background:var(--rose);border-color:var(--rose);color:white}.photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:20px 0}.polaroid{border:1px solid #eadcc6;background:white;padding:9px 9px 14px;box-shadow:0 5px 13px #49382d10;transform:rotate(-1deg);cursor:pointer}.polaroid:nth-child(2n){transform:rotate(1.5deg)}.photo-placeholder{height:145px;background:linear-gradient(145deg,#f2e1cf,#ead2c7 55%,#e4d9bd);display:grid;place-items:center;color:#8d6d5d;text-align:center;font-size:32px;overflow:hidden}.photo-placeholder img{width:100%;height:100%;object-fit:cover;display:block}.photo-caption{text-align:center;font-size:13px;margin-top:10px;font-style:italic}.tiny-note{font:11px/1.7 Arial,sans-serif;color:var(--muted)}.letter{background:#fff8e9;border:1px solid #ead9bc;padding:24px 23px;line-height:1.9;white-space:pre-line;box-shadow:inset 0 0 22px #a8523c08}.letter p{margin:0 0 12px}.letter .sign{font-style:italic;text-align:right;color:var(--rust);margin-top:20px}.music-card{border:1px solid var(--line);border-radius:9px;padding:25px 20px;text-align:center;background:#fdf5e8;width:min(100%,410px);margin:18px auto}.vinyl{width:125px;height:125px;border-radius:50%;margin:0 auto 18px;background:repeating-radial-gradient(circle,#2f2926 0 4px,#171615 5px 8px);display:grid;place-items:center;box-shadow:0 5px 15px #49382d30}.vinyl:before{content:"";width:43px;height:43px;border-radius:50%;background:var(--rose);border:5px solid #f0c8ae;box-shadow:inset 0 0 0 1px #a8523c}.vinyl.playing{animation:spin 3.5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.music-status{font:12px Arial,sans-serif;color:var(--muted);min-height:18px;margin-top:12px}.reasons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}.reason{border:1px dashed #d7bba0;border-radius:5px;background:#fff8eb;padding:16px 12px;min-height:90px;text-align:center;font-size:14px;line-height:1.5}.reason span{display:block;font-size:21px;margin-bottom:8px}.wish-box{background:#fff8eb;border:1px dashed #d5b99d;padding:20px;border-radius:8px;text-align:center;margin:18px 0}.cake{font-size:75px;filter:drop-shadow(0 6px 3px #49382d12)}.candle{font-size:20px}.wish-message{display:none;color:var(--rust);font-style:italic;line-height:1.7;margin-top:15px}.wish-message.show{display:block}.openwhen-list{display:grid;gap:10px;margin:20px 0}.openwhen{border:1px solid var(--line);border-radius:6px;background:#fff8eb;text-align:left;padding:13px 15px;color:var(--brown)}.openwhen strong{display:block;font-weight:normal}.openwhen small{display:block;color:var(--muted);margin-top:3px}.openwhen-msg{display:none;border-left:2px solid var(--rose);padding:12px 16px;margin:8px 0;background:#fff9ef;line-height:1.8}.openwhen-msg.show{display:block}.secret-lock{font-size:48px;margin:15px 0}.secret-content{display:none;line-height:1.85;background:#fff8eb;border:1px dashed #d5b99d;padding:20px;margin-top:15px}.secret-content.show{display:block}.footer{text-align:center;color:#907c69;font-size:12px;padding:8px 15px 30px;line-height:1.8}.modal{display:none;position:fixed;inset:0;background:#241b17d9;z-index:10;align-items:center;justify-content:center;padding:22px}.modal.show{display:flex}.modal-inner{background:var(--paper);padding:15px;border-radius:8px;max-width:600px;width:100%;text-align:center}.modal-inner img{max-width:100%;max-height:65vh;object-fit:contain}.modal-close{margin-top:12px}.upload-label{display:inline-block;margin-top:7px;font:11px Arial,sans-serif;color:var(--muted);cursor:pointer;text-decoration:underline}.upload-label input{display:none}.editable-hint{font:11px/1.7 Arial,sans-serif;color:#9b8876;margin-top:8px}.countdown{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}.timebox{min-width:64px;padding:12px 8px;background:#fff7e9;border:1px solid var(--line);border-radius:5px}.timebox b{display:block;font-size:23px;font-weight:normal}.timebox small{font:9px Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}textarea{width:100%;min-height:85px;padding:12px;border:1px solid var(--line);background:#fffaf1;color:var(--brown);font:14px Georgia,serif;resize:vertical}
+@media(max-width:520px){.book-wrap{width:calc(100% - 18px);margin-top:12px}.book{min-height:600px}.book:before{left:12px}.book:after{left:16px}.page{padding:42px 19px 25px 31px;min-height:600px}.page h2{font-size:30px}.photo-placeholder{height:115px}.photo-grid{gap:10px}.navbtn{padding:9px 12px}.page-nav{width:calc(100% - 24px)}.menu-toggle{width:calc(100% - 20px)}.reasons{gap:8px}.reason{padding:12px 8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
-
 <body>
-<div id="hearts" aria-hidden="true"></div>
-
-<!-- OPENING -->
-<div class="opening" id="opening">
-  <div class="opening-card">
-    <div class="stamp">SEALED WITH LOVE</div>
-    <span class="envelope-icon">💌</span>
-    <p class="label">A little surprise for you</p>
-    <h2>For my dearest, Mamas ♡</h2>
-    <p>Ada sesuatu yang aku siapkan khusus buat kamu.<br>Siap membuka cerita kecil kita?</p>
-    <button id="openButton">Buka hadiahmu ♡</button>
-  </div>
-</div>
-
-<main class="page">
-<header class="hero" id="top">
-  <div class="stamp">A LITTLE SURPRISE FOR YOU</div>
-  <p class="label">A page made with love</p>
-  <h1>Happy Birthday<span>My Dearest, Mamas ♡</span></h1>
-  <p class="intro">Hari ini adalah hari spesial seseorang yang punya tempat istimewa di hati aku. Selamat ulang tahun, sayangku. 🤎</p>
-  <button id="startButton">Open Our Story ↓</button>
+<div class="topline"></div>
+<header class="site-head">
+  <div class="eyebrow">SEALED WITH LOVE · EST. JUST FOR YOU</div>
+  <h1 class="brand">For my dearest, Mamas ♡</h1>
+  <p class="head-note">a little diary of us, and all the love in between</p>
 </header>
 
-<!-- COUNTDOWN -->
-<section id="countdownSection">
-  <p class="label">A little countdown</p>
-  <h2>Menuju Hari Spesialmu ⏳</h2>
-  <p id="countdownIntro">Menghitung hari menuju ulang tahun Mamas.</p>
-  <div class="countdown" aria-live="polite">
-    <div class="countbox"><strong id="days">--</strong><span>Hari</span></div>
-    <div class="countbox"><strong id="hours">--</strong><span>Jam</span></div>
-    <div class="countbox"><strong id="minutes">--</strong><span>Menit</span></div>
-    <div class="countbox"><strong id="seconds">--</strong><span>Detik</span></div>
-  </div>
-  <p class="small">Ingat untuk mengatur tanggal ulang tahun pada CONFIG di bawah.</p>
-</section>
-
-<!-- GALLERY -->
-<section id="memories">
-  <p class="label">Chapter 01 · Memories</p>
-  <h2>Potongan Cerita Kita 🎞️</h2>
-  <p>Little moments, precious memories.</p>
-  <div class="memories">
-    <button class="polaroid" data-photo="foto1.jpg" data-caption="our beginning ♡">
-      <img src="foto1.jpg" alt="Kenangan pertama" loading="lazy">
-      <span class="caption">our beginning ♡</span>
-    </button>
-    <button class="polaroid" data-photo="foto2.jpg" data-caption="my favorite day">
-      <img src="foto2.jpg" alt="Kenangan favorit" loading="lazy">
-      <span class="caption">my favorite day</span>
-    </button>
-    <button class="polaroid" data-photo="foto3.jpg" data-caption="little things, big feelings">
-      <img src="foto3.jpg" alt="Kenangan bersama" loading="lazy">
-      <span class="caption">little things, big feelings</span>
-    </button>
-    <button class="polaroid" data-photo="foto4.jpg" data-caption="to be continued...">
-      <img src="foto4.jpg" alt="Kenangan manis" loading="lazy">
-      <span class="caption">to be continued...</span>
-    </button>
-  </div>
-  <p>♡ Our story is my favorite story. ♡</p>
-  <p class="small">Ketuk foto untuk memperbesarnya.</p>
-</section>
-
-<!-- LETTER -->
-<section id="letterSection">
-  <p class="label">Chapter 02 · Open with love</p>
-  <h2>A Letter for You 💌</h2>
-  <div class="envelope">
-    <div style="font-size:45px">✉️</div>
-    <p>To: My Mamas<br>From: Your Sayang</p>
-    <button id="letterButton">Buka Suratnya 💌</button>
-    <div class="letter" id="letter" aria-live="polite">
-      <span id="letterText"></span><span id="cursor" class="cursor">|</span>
-      <p id="signature" class="signature hidden">Always yours, sayang ♡</p>
-    </div>
-  </div>
-</section>
-
-<!-- MUSIC -->
-<section id="musicSection">
-  <p class="label">Chapter 03 · Our soundtrack</p>
-  <h2>A Song for You ♫</h2>
-  <div class="music">
-    <div class="vinyl" id="vinyl">♫</div>
-    <p id="songName">A little song for Mamas</p>
-   
-    <button id="musicButton">Play Music ♫</button>
-<audio id="music" loop preload="none">
-  <source src="Perunggu%20-%20Ini%20Abadi%20%28Video%20Lirik%29.mp3" type="audio/mpeg">
-</audio>
-  <p class="small" id="musicStatus">Tekan Play Music untuk mendengarkan ♡</p>
-  </div>
-</section>
-
-<!-- CAKE -->
-<section id="cakeSection">
-  <p class="label">Chapter 04 · Make a wish</p>
-  <h2>A Cake Just for You 🎂</h2>
-  <p>Pejamkan mata sebentar, lalu buat satu harapan.</p>
-  <div class="cake">
-    <div class="candles">
-      <div class="candle"><span class="flame"></span></div>
-      <div class="candle"><span class="flame"></span></div>
-      <div class="candle"><span class="flame"></span></div>
-    </div>
-    <div class="icing"></div><div class="cake-body"></div><div class="plate"></div>
-  </div>
-  <p id="cakeMessage">Make a wish, birthday boy! ✨</p>
-  <button id="blowButton">Tiup Lilinnya! 🕯️</button>
-  <button id="relightButton" class="hidden">Nyalakan Lagi ♡</button>
-  <div id="cakeSurprise" class="secret hidden">
-    <h2>Wish made! ✨</h2>
-    <p>Semoga hal-hal baik selalu menemukan jalannya ke kamu. Aku akan ikut senang melihat kamu bahagia. 🤎</p>
-  </div>
-</section>
-
-<!-- SECRET -->
-<section id="secretSection">
-  <p class="label">Final Chapter · Just for us</p>
-  <h2>One Last Surprise 🔐</h2>
-  <p>Ada satu hal lagi yang ingin aku sampaikan.</p>
-  <div id="lock" style="font-size:45px">🔐</div>
-  <button id="secretButton">Buka Pesan Rahasia 💝</button>
-  <div class="secret hidden" id="secret">
-    <div style="font-size:45px">💗</div>
-    <h2>It's You. Always You.</h2>
-    <p>Kalau aku diberi kesempatan untuk memilih lagi, aku tetap ingin mengenal kamu.</p>
-    <p>Aku tetap ingin mendengar cerita random kamu, tertawa bareng kamu, dan menemani kamu melewati hari-hari yang akan datang.</p>
-    <p>Aku ingin merayakan lebih banyak ulang tahunmu, melihat kamu tumbuh, dan mendukung semua impianmu.</p>
-    <p><strong>Happy birthday, Mamas. You will always be someone special to me. ♡</strong></p>
-  </div>
-</section>
-
-<footer>
-  ✿ ♡ ✿<br>
-  Made with love, just for Mamas.<br>
-  <small>Our little story is still being written...</small>
-</footer>
-</main>
-
-<!-- PHOTO VIEWER -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-  <button class="close-lightbox" id="closeLightbox" aria-label="Tutup foto">×</button>
-  <div>
-    <img id="lightboxImage" src="" alt="">
-    <p id="lightboxCaption" style="color:white;font-style:italic"></p>
-  </div>
+<div class="menu-toggle" aria-label="Pilih halaman diary">
+  <button class="menu-pill active" data-page="0">♡ Sampul</button>
+  <button class="menu-pill" data-page="1">01 Kenangan</button>
+  <button class="menu-pill" data-page="2">02 Surat</button>
+  <button class="menu-pill" data-page="3">03 Musik</button>
+  <button class="menu-pill" data-page="4">04 Alasan</button>
+  <button class="menu-pill" data-page="5">05 Harapan</button>
+  <button class="menu-pill" data-page="6">06 Open when</button>
+  <button class="menu-pill" data-page="7">07 Rahasia</button>
 </div>
 
+<main class="book-wrap">
+<div class="book" id="diaryBook">
+  <!-- PAGE 1: COVER -->
+  <section class="page active center" data-index="0" aria-label="Sampul diary">
+    <span class="page-num">cover</span>
+    <div class="chapter-label">A LITTLE SURPRISE FOR YOU</div>
+    <div class="stamp">♡</div>
+    <h2>Happy Birthday,<br>My Dearest Mamas</h2>
+    <p class="lead">Ada sesuatu yang aku siapkan khusus buat kamu. Sebuah diary kecil berisi kenangan, kata-kata, dan hal-hal yang mungkin nggak selalu bisa aku ungkapkan setiap hari.</p>
+    <p class="hand">Ready to open our little world?</p>
+    <div class="rule"></div>
+    <p class="tiny-note">27 October · a day to celebrate you</p>
+    <div class="actions"><button class="btn" data-goto="1">Buka diary kita ♡</button></div>
+  </section>
+
+  <!-- PAGE 2: MEMORIES -->
+  <section class="page" data-index="1" aria-label="Kenangan kita">
+    <span class="page-num">01 / 08</span>
+    <div class="chapter-label">Chapter 01 · Little moments</div>
+    <h2>Potongan Cerita Kita 🎞️</h2>
+    <p class="lead">Mungkin buat orang lain ini cuma foto biasa. Tapi buat aku, setiap foto menyimpan cerita kecil yang selalu punya tempat di hati.</p>
+    <div class="photo-grid">
+      <div class="polaroid" data-photo="photo1"><div class="photo-placeholder" id="placeholder1">♡<br><small>Foto kita 01</small></div><div class="photo-caption" contenteditable="true">our beginning ♡</div><label class="upload-label">+ Tambah foto<input type="file" accept="image/*" data-upload="placeholder1"></label></div>
+      <div class="polaroid" data-photo="photo2"><div class="photo-placeholder" id="placeholder2">✿<br><small>Foto kita 02</small></div><div class="photo-caption" contenteditable="true">my favorite day</div><label class="upload-label">+ Tambah foto<input type="file" accept="image/*" data-upload="placeholder2"></label></div>
+      <div class="polaroid" data-photo="photo3"><div class="photo-placeholder" id="placeholder3">☼<br><small>Foto kita 03</small></div><div class="photo-caption" contenteditable="true">little things, big feelings</div><label class="upload-label">+ Tambah foto<input type="file" accept="image/*" data-upload="placeholder3"></label></div>
+      <div class="polaroid" data-photo="photo4"><div class="photo-placeholder" id="placeholder4">♡<br><small>Foto kita 04</small></div><div class="photo-caption" contenteditable="true">to be continued...</div><label class="upload-label">+ Tambah foto<input type="file" accept="image/*" data-upload="placeholder4"></label></div>
+    </div>
+    <p class="tiny-note">Tips: tambahkan foto dari perangkat untuk melihat pratinjau. Untuk menyimpannya permanen di website, unggah foto ke repository dan ubah placeholder menjadi tag img.</p>
+    <p class="hand" style="text-align:center">Our story is my favorite story. ♡</p>
+    <div class="actions"><button class="btn secondary" data-goto="0">← Sampul</button><button class="btn" data-goto="2">Baca surat →</button></div>
+  </section>
+
+  <!-- PAGE 3: LETTER -->
+  <section class="page" data-index="2" aria-label="Surat untuk Mamas">
+    <span class="page-num">02 / 08</span>
+    <div class="chapter-label">Chapter 02 · Open with love</div>
+    <h2>A Letter for You 💌</h2>
+    <div class="letter">
+      <p>To: My Mamas</p>
+      <p>Hai, sayangku. Happy birthday yaa. 🤎</p>
+      <p>Di hari spesial kamu ini, aku cuma mau kamu tahu kalau kehadiran kamu berarti banyak buat aku. Terima kasih sudah menjadi bagian dari hari-hariku, dari cerita random, tawa kecil, sampai momen-momen sederhana yang ternyata jadi kenangan berharga.</p>
+      <p>Semoga di umur yang baru ini kamu selalu diberi kesehatan, hati yang tenang, langkah yang dimudahkan, dan keberanian buat mengejar semua yang kamu impikan. Kalau nanti ada hari yang berat, semoga kamu ingat kalau kamu nggak harus selalu kuat sendirian.</p>
+      <p>Aku mungkin nggak selalu pandai merangkai kata, tapi aku berharap kamu bisa merasakan sayangku dari hal-hal kecil yang aku usahakan untuk kamu.</p>
+      <p>Semoga kita masih punya banyak cerita untuk ditulis, tempat untuk dikunjungi, lagu untuk didengar, dan ulang tahun untuk dirayakan bersama.</p>
+      <p class="sign">With all my love,<br>Your Sayang ♡</p>
+    </div>
+    <p class="editable-hint">Surat ini bisa kamu edit langsung di file index.html kapan saja.</p>
+    <div class="actions"><button class="btn secondary" data-goto="1">← Kenangan</button><button class="btn" data-goto="3">Putar lagu →</button></div>
+  </section>
+
+  <!-- PAGE 4: MUSIC -->
+  <section class="page center" data-index="3" aria-label="Lagu kita">
+    <span class="page-num">03 / 08</span>
+    <div class="chapter-label">Chapter 03 · Our soundtrack</div>
+    <h2>A Song for You ♫</h2>
+    <p class="lead">Ada lagu yang ketika didengar, rasanya seperti menyimpan satu cerita. Lagu ini jadi soundtrack kecil untuk halaman kita.</p>
+    <div class="music-card">
+      <div class="vinyl" id="vinyl" aria-hidden="true"></div>
+      <h3>Ini Abadi</h3>
+      <p class="tiny-note">Perunggu · for Mamas ♡</p>
+      <audio id="music" loop preload="metadata"><source src="Perunggu%20-%20Ini%20Abadi%20%28Video%20Lirik%29.mp3" type="audio/mpeg">Browser kamu tidak mendukung audio HTML.</audio>
+      <button class="btn" id="musicButton" type="button">Play Music ♫</button>
+      <div class="music-status" id="musicStatus" aria-live="polite">Tekan Play Music untuk mendengarkan ♡</div>
+    </div>
+    <p class="tiny-note">Kalau lagu tidak mulai, pastikan file MP3 berada di folder utama repository dengan nama yang sama persis.</p>
+    <div class="actions"><button class="btn secondary" data-goto="2">← Surat</button><button class="btn" data-goto="4">Lanjut →</button></div>
+  </section>
+
+  <!-- PAGE 5: REASONS -->
+  <section class="page" data-index="4" aria-label="Alasan sayang">
+    <span class="page-num">04 / 08</span>
+    <div class="chapter-label">Chapter 04 · A few little reasons</div>
+    <h2>Reasons I Love You ♡</h2>
+    <p class="lead">Kalau disuruh menyebutkan semuanya, mungkin satu diary ini nggak akan cukup. Tapi ini beberapa hal kecil yang selalu aku suka dari kamu.</p>
+    <div class="reasons">
+      <div class="reason"><span>☼</span>Cara kamu membuat hari biasa terasa lebih seru.</div>
+      <div class="reason"><span>♡</span>Cerita random kamu yang selalu punya tempat buat didengar.</div>
+      <div class="reason"><span>✿</span>Usaha kamu, bahkan saat kamu sendiri merasa belum cukup.</div>
+      <div class="reason"><span>☁</span>Nyamannya jadi diri sendiri saat bersama kamu.</div>
+      <div class="reason"><span>✉</span>Hal-hal kecil yang kamu ingat tanpa diminta.</div>
+      <div class="reason"><span>∞</span>Karena kamu adalah kamu—dan itu berarti.</div>
+    </div>
+    <p class="hand" style="text-align:center">You are loved in more ways than you know.</p>
+    <div class="actions"><button class="btn secondary" data-goto="3">← Musik</button><button class="btn" data-goto="5">Buat harapan →</button></div>
+  </section>
+
+  <!-- PAGE 6: WISH -->
+  <section class="page center" data-index="5" aria-label="Harapan ulang tahun">
+    <span class="page-num">05 / 08</span>
+    <div class="chapter-label">Chapter 05 · Make a wish</div>
+    <h2>A Cake Just for You 🎂</h2>
+    <p class="lead">Pejamkan mata sebentar, tarik napas, lalu buat satu harapan untuk umur barumu.</p>
+    <div class="wish-box">
+      <div class="cake" id="cake">🎂</div>
+      <p class="hand">Make a wish, birthday boy!</p>
+      <button class="btn" id="wishButton">Tiup lilinnya! 🕯️</button>
+      <div class="wish-message" id="wishMessage">Wish made! ✨<br>Semoga hal-hal baik selalu menemukan jalannya ke kamu. Semoga kamu sehat, bahagia, dikelilingi orang baik, dan semakin dekat dengan semua impianmu. Aku akan ikut senang melihat kamu bahagia. 🤎</div>
+    </div>
+    <p class="tiny-note">Psst... harapanmu nggak harus diceritakan ke siapa-siapa. Simpan baik-baik di hati.</p>
+    <div class="actions"><button class="btn secondary" data-goto="4">← Alasan</button><button class="btn" data-goto="6">Ada pesan untukmu →</button></div>
+  </section>
+
+  <!-- PAGE 7: OPEN WHEN -->
+  <section class="page" data-index="6" aria-label="Open when messages">
+    <span class="page-num">06 / 08</span>
+    <div class="chapter-label">Chapter 06 · Open when...</div>
+    <h2>Little Notes for You ✉</h2>
+    <p class="lead">Pilih satu amplop yang kamu butuhkan hari ini. Anggap ini peluk kecil dariku, kapan pun kamu membutuhkannya.</p>
+    <div class="openwhen-list">
+      <button class="openwhen" data-note="sad"><strong>♡ Open when you're sad</strong><small>Kalau hari ini terasa berat...</small></button>
+      <div class="openwhen-msg" id="note-sad">Nggak apa-apa kalau hari ini kamu nggak baik-baik saja. Kamu nggak harus menyelesaikan semuanya sekaligus. Istirahat dulu, tarik napas, dan ingat bahwa perasaanmu juga penting. Aku percaya kamu bisa melewati ini, satu langkah kecil dalam satu waktu. 🤎</div>
+      <button class="openwhen" data-note="miss"><strong>✉ Open when you miss me</strong><small>Kalau jarak terasa sedikit menyebalkan...</small></button>
+      <div class="openwhen-msg" id="note-miss">Anggap pesan ini sebagai peluk dari jauh. Bayangkan aku duduk di sebelah kamu, mendengarkan ceritamu, lalu mengganggu kamu sedikit sampai kamu senyum. Semoga kita segera punya waktu untuk membuat kenangan baru lagi. ♡</div>
+      <button class="openwhen" data-note="tired"><strong>☁ Open when you're tired</strong><small>Kalau kamu merasa harus kuat terus...</small></button>
+      <div class="openwhen-msg" id="note-tired">Sayang, kamu boleh berhenti sebentar. Kamu nggak harus produktif setiap waktu untuk menjadi seseorang yang berharga. Minum air, makan yang cukup, istirahat, lalu lanjut lagi kalau kamu sudah siap. Aku bangga sama usaha kamu.</div>
+      <button class="openwhen" data-note="happy"><strong>☼ Open when you're happy</strong><small>Kalau ada kabar baik yang ingin kamu rayakan...</small></button>
+      <div class="openwhen-msg" id="note-happy">AKU IKUT SENANGGG! Simpan momen ini baik-baik, ya. Kamu pantas mendapatkan hal-hal baik dan merayakan pencapaianmu, sekecil apa pun itu. Semoga akan ada lebih banyak alasan untuk tersenyum di hari-hari kamu berikutnya. ✨</div>
+    </div>
+    <div class="actions"><button class="btn secondary" data-goto="5">← Harapan</button><button class="btn" data-goto="7">Kejutan terakhir →</button></div>
+  </section>
+
+  <!-- PAGE 8: SECRET -->
+  <section class="page center" data-index="7" aria-label="Pesan rahasia">
+    <span class="page-num">07 / 08</span>
+    <div class="chapter-label">Final chapter · Just for us</div>
+    <h2>One Last Surprise 🔐</h2>
+    <p class="lead">Ada satu hal lagi yang ingin aku sampaikan. Buka pesan terakhir ini kalau kamu sudah siap menerima sedikit rasa sayang tambahan.</p>
+    <div class="secret-lock" id="secretLock">🔐</div>
+    <button class="btn" id="secretButton">Buka pesan rahasia 💝</button>
+    <div class="secret-content" id="secretContent">
+      <p class="hand">It's you. Always you. ♡</p>
+      <p>Kalau aku diberi kesempatan untuk memilih lagi, aku tetap ingin mengenal kamu.</p>
+      <p>Aku tetap ingin mendengar cerita random kamu, tertawa bareng kamu, dan menemani kamu melewati hari-hari yang akan datang.</p>
+      <p>Aku ingin merayakan lebih banyak ulang tahunmu, melihat kamu tumbuh, dan mendukung semua impianmu. Semoga kamu selalu ingat bahwa kamu layak dicintai, dihargai, dan disayangi dengan tulus.</p>
+      <p>Happy birthday, Mamas. Terima kasih sudah menjadi bagian dari ceritaku. Semoga perjalananmu di umur baru ini dipenuhi hal baik, dan semoga kita punya banyak halaman indah yang belum ditulis.</p>
+      <p class="hand">With love, your Sayang ♡</p>
+    </div>
+    <div class="rule"></div>
+    <p class="tiny-note">✿ Our little story is still being written... ✿</p>
+    <div class="actions"><button class="btn secondary" data-goto="6">← Open when</button><button class="btn" id="restartButton">Baca dari awal ↺</button></div>
+  </section>
+</div>
+
+<div class="page-nav" aria-label="Navigasi halaman">
+  <button class="navbtn" id="prevButton" disabled>← Sebelumnya</button>
+  <div class="dots" id="dots" aria-label="Nomor halaman"></div>
+  <span class="page-count" id="pageCount">1 / 8</span>
+  <button class="navbtn" id="nextButton">Berikutnya →</button>
+</div>
+</main>
+<footer class="footer">Made with love, just for Mamas ♡<br><span>one little page at a time</span></footer>
+
+<div class="modal" id="photoModal" role="dialog" aria-modal="true" aria-label="Foto kenangan diperbesar">
+  <div class="modal-inner"><img id="modalImage" alt="Foto kenangan diperbesar"><div id="modalCaption" class="photo-caption"></div><button class="btn secondary modal-close" id="closeModal">Tutup ×</button></div>
+</div>
 <script>
-/* ============ CONFIG: SESUAIKAN BAGIAN INI ============ */
-const CONFIG = {
-  birthdayMonth: 10, // 1=Januari, 12=Desember
-  birthdayDay: 27,   // Ganti dengan tanggal ulang tahun Mamas
-  birthdayHour: 0,
-  birthdayMinute: 0
-};
-/* ====================================================== */
+(() => {
+  const pages = [...document.querySelectorAll('.page')];
+  const pills = [...document.querySelectorAll('.menu-pill')];
+  const dots = document.getElementById('dots');
+  const prev = document.getElementById('prevButton');
+  const next = document.getElementById('nextButton');
+  const count = document.getElementById('pageCount');
+  let current = 0;
 
-const $ = id => document.getElementById(id);
-
-// OPENING
-function openStory(target="memories") {
-  $("opening").classList.add("gone");
-  hearts(22);
-  setTimeout(() => $(target).scrollIntoView({behavior:"smooth"}), 350);
-}
-$("openButton").addEventListener("click", () => openStory("top"));
-$("startButton").addEventListener("click", () => openStory("memories"));
-
-// HEART ANIMATION
-function hearts(amount=12) {
-  const container=$("hearts");
-  const symbols=["♡","♥","💕","✿"];
-  const colors=["#a8523c","#c98279","#6f7657"];
-  for(let i=0;i<amount;i++){
-    const el=document.createElement("span");
-    el.className="heart";
-    el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
-    el.style.left=Math.random()*100+"%";
-    el.style.fontSize=16+Math.random()*20+"px";
-    el.style.color=colors[Math.floor(Math.random()*colors.length)];
-    container.appendChild(el);
-    setTimeout(()=>el.remove(),4100);
-  }
-}
-
-// COUNTDOWN: targets the next birthday date
-function nextBirthday() {
-  const now=new Date();
-  let year=now.getFullYear();
-  let target=new Date(year,CONFIG.birthdayMonth-1,CONFIG.birthdayDay,
-                      CONFIG.birthdayHour,CONFIG.birthdayMinute);
-  if(target<=now) target=new Date(year+1,CONFIG.birthdayMonth-1,
-                                  CONFIG.birthdayDay,CONFIG.birthdayHour,
-                                  CONFIG.birthdayMinute);
-  return target;
-}
-function updateCountdown() {
-  const target=nextBirthday();
-  const diff=Math.max(0,target-new Date());
-  $("days").textContent=Math.floor(diff/86400000);
-  $("hours").textContent=Math.floor(diff%86400000/3600000);
-  $("minutes").textContent=Math.floor(diff%3600000/60000);
-  $("seconds").textContent=Math.floor(diff%60000/1000);
-  $("countdownIntro").textContent="Menuju "+target.toLocaleDateString("id-ID",{
-    day:"numeric",month:"long",year:"numeric"
-  })+", hari spesial seseorang yang aku sayang.";
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-// GALLERY LIGHTBOX
-document.querySelectorAll(".polaroid").forEach(button=>{
-  button.addEventListener("click",()=>{
-    $("lightboxImage").src=button.dataset.photo;
-    $("lightboxImage").alt=button.dataset.caption;
-    $("lightboxCaption").textContent=button.dataset.caption;
-    $("lightbox").classList.add("show");
-    $("closeLightbox").focus();
+  pages.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Buka halaman ' + (i + 1));
+    dot.addEventListener('click', () => showPage(i));
+    dots.appendChild(dot);
   });
-});
-function closeLightbox(){
-  $("lightbox").classList.remove("show");
-  $("lightboxImage").src="";
-}
-$("closeLightbox").addEventListener("click",closeLightbox);
-$("lightbox").addEventListener("click",e=>{
-  if(e.target===$("lightbox")) closeLightbox();
-});
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeLightbox();
-});
 
-// LOVE LETTER WITH TYPING EFFECT
-const letterCopy=`Happy birthday, mamas! 🤎
-
-Terima kasih sudah hadir di hidup aku.
-Terima kasih untuk setiap tawa, cerita,
-perhatian kecil, dan waktu yang kita habiskan
-bersama.
-
-Di umur kamu yang baru ini, aku berharap
-semoga kamu selalu sehat, bahagia, dan
-dimudahkan dalam segala urusan.
-
-Semoga semua mimpi yang kamu simpan
-pelan-pelan bisa jadi kenyataan.
-Kalau suatu hari dunia terasa berat,
-semoga kamu ingat kalau kamu nggak harus
-menghadapi semuanya sendirian.
-
-Aku memang nggak bisa menjanjikan
-hubungan yang selalu sempurna.
-Tapi aku mau terus belajar memahami kamu,
-menemani prosesmu, dan merayakan
-setiap hal baik yang datang kepadamu.
-
-Selamat bertambah usia, sayang.
-Semoga tahun ini membawa lebih banyak
-alasan untuk tersenyum.
-
-I am so lucky to have you.
-I love you, Mamas. ♡`;
-
-let typingTimer=null,letterTyped=false;
-function showLetterText(){
-  if(letterTyped){
-    $("letterText").textContent=letterCopy;
-    $("cursor").classList.add("hidden");
-    $("signature").classList.remove("hidden");
-    return;
+  function showPage(index) {
+    current = Math.max(0, Math.min(pages.length - 1, index));
+    pages.forEach((page, i) => {
+      page.classList.toggle('active', i === current);
+      page.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+    });
+    pills.forEach((pill, i) => pill.classList.toggle('active', i === current));
+    [...dots.children].forEach((dot, i) => dot.classList.toggle('active', i === current));
+    prev.disabled = current === 0;
+    next.disabled = current === pages.length - 1;
+    count.textContent = (current + 1) + ' / ' + pages.length;
+    document.getElementById('diaryBook').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  letterTyped=true;
-  let i=0;
-  $("letterText").textContent="";
-  $("cursor").classList.remove("hidden");
-  typingTimer=setInterval(()=>{
-    $("letterText").textContent+=letterCopy.charAt(i++);
-    if(i>=letterCopy.length){
-      clearInterval(typingTimer);
-      typingTimer=null;
-      $("cursor").classList.add("hidden");
-      $("signature").classList.remove("hidden");
+  pills.forEach(pill => pill.addEventListener('click', () => showPage(Number(pill.dataset.page))));
+  document.querySelectorAll('[data-goto]').forEach(button => button.addEventListener('click', () => showPage(Number(button.dataset.goto))));
+  prev.addEventListener('click', () => showPage(current - 1));
+  next.addEventListener('click', () => showPage(current + 1));
+  document.getElementById('restartButton').addEventListener('click', () => showPage(0));
+
+  // Music player: audio file is stored in the repository root.
+  const music = document.getElementById('music');
+  const musicButton = document.getElementById('musicButton');
+  const musicStatus = document.getElementById('musicStatus');
+  const vinyl = document.getElementById('vinyl');
+  musicButton.addEventListener('click', async () => {
+    if (music.paused) {
+      try {
+        await music.play();
+        musicButton.textContent = 'Pause Music ♫';
+        vinyl.classList.add('playing');
+        musicStatus.textContent = 'Sedang memutar Ini Abadi ♡';
+      } catch (error) {
+        musicStatus.textContent = 'Lagu belum bisa diputar. Pastikan file MP3 ada di folder utama repository.';
+      }
+    } else {
+      music.pause();
+      musicButton.textContent = 'Play Music ♫';
+      vinyl.classList.remove('playing');
+      musicStatus.textContent = 'Lagu dijeda. Tekan play kalau ingin melanjutkan ♡';
     }
-  },20);
-}
-$("letterButton").addEventListener("click",()=>{
-  const opened=$("letter").classList.toggle("show");
-  $("letterButton").textContent=opened?"Tutup Surat 💌":"Buka Suratnya 💌";
-  if(opened){
-    showLetterText();
-    hearts(10);
-    setTimeout(()=>$("letter").scrollIntoView({behavior:"smooth",block:"nearest"}),100);
-  } else if(typingTimer){
-    clearInterval(typingTimer);
-    typingTimer=null;
-  }
-});
+  });
+  music.addEventListener('ended', () => {
+    musicButton.textContent = 'Play Music ♫';
+    vinyl.classList.remove('playing');
+  });
+  music.addEventListener('error', () => {
+    musicStatus.textContent = 'File lagu belum berhasil dimuat. Cek nama file MP3 di repository.';
+  });
 
+  // Photo placeholders: local previews are temporary until the page is refreshed.
+  document.querySelectorAll('[data-upload]').forEach(input => {
+    input.addEventListener('change', event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const target = document.getElementById(input.dataset.upload);
+        target.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = reader.result;
+        img.alt = 'Foto kenangan';
+        target.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
 
-const music = $("music");
+  // Photo lightbox.
+  const modal = document.getElementById('photoModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+  document.querySelectorAll('.polaroid').forEach(card => {
+    card.addEventListener('click', event => {
+      if (event.target.closest('label') || event.target.isContentEditable || event.target.closest('input')) return;
+      const img = card.querySelector('.photo-placeholder img');
+      if (!img) return;
+      modalImage.src = img.src;
+      modalCaption.textContent = card.querySelector('.photo-caption').textContent;
+      modal.classList.add('show');
+    });
+  });
+  function closeModal(){ modal.classList.remove('show'); modalImage.removeAttribute('src'); }
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 
-$("musicButton").addEventListener("click", async () => {
-  if (music.paused) {
-    try {
-      await music.play();
-      $("musicButton").textContent = "Pause Music ♫";
-      $("vinyl").classList.add("playing");
-      $("musicStatus").textContent = "Sedang memutar lagu ♡";
-    } catch (e) {
-      $("musicStatus").textContent =
-        "Lagu belum bisa diputar. Periksa file lagu.mp3.";
-    }
-  } else {
-    music.pause();
-    $("musicButton").textContent = "Play Music ♫";
-    $("vinyl").classList.remove("playing");
-    $("musicStatus").textContent = "Lagu dijeda.";
-  }
-});
+  // Birthday wish button.
+  document.getElementById('wishButton').addEventListener('click', () => {
+    document.getElementById('cake').textContent = '🍰';
+    document.getElementById('wishMessage').classList.add('show');
+    document.getElementById('wishButton').textContent = 'Wish made! ✨';
+  });
 
-music.addEventListener("ended", () => {
-  $("musicButton").textContent = "Play Music ♫";
-  $("vinyl").classList.remove("playing");
-});
+  // Open-when envelopes toggle individually.
+  document.querySelectorAll('[data-note]').forEach(button => {
+    button.addEventListener('click', () => {
+      const message = document.getElementById('note-' + button.dataset.note);
+      message.classList.toggle('show');
+      button.setAttribute('aria-expanded', message.classList.contains('show') ? 'true' : 'false');
+    });
+  });
 
-
-// BIRTHDAY CAKE
-$("blowButton").addEventListener("click",()=>{
-  document.querySelectorAll(".flame").forEach(el=>el.classList.add("out"));
-  $("cakeMessage").textContent="Yay! Semoga semua harapanmu menjadi nyata! 🎉";
-  $("blowButton").classList.add("hidden");
-  $("relightButton").classList.remove("hidden");
-  $("cakeSurprise").classList.remove("hidden");
-  hearts(25);
-});
-$("relightButton").addEventListener("click",()=>{
-  document.querySelectorAll(".flame").forEach(el=>el.classList.remove("out"));
-  $("cakeMessage").textContent="Make another wish, sayang! ✨";
-  $("blowButton").classList.remove("hidden");
-  $("relightButton").classList.add("hidden");
-  $("cakeSurprise").classList.add("hidden");
-});
-
-// SECRET MESSAGE
-$("secretButton").addEventListener("click",()=>{
-  const opened=$("secret").classList.toggle("show");
-  $("secretButton").textContent=opened?"Tutup Pesan Rahasia ♡":"Buka Pesan Rahasia 💝";
-  $("lock").textContent=opened?"💖":"🔐";
-  if(opened){
-    hearts(25);
-    setTimeout(()=>$("secret").scrollIntoView({behavior:"smooth",block:"center"}),100);
-  }
-});
+  // Secret note reveal.
+  document.getElementById('secretButton').addEventListener('click', () => {
+    document.getElementById('secretContent').classList.toggle('show');
+    const isOpen = document.getElementById('secretContent').classList.contains('show');
+    document.getElementById('secretLock').textContent = isOpen ? '💌' : '🔐';
+    document.getElementById('secretButton').textContent = isOpen ? 'Tutup pesan rahasia ♡' : 'Buka pesan rahasia 💝';
+  });
+})();
 </script>
 </body>
 </html>
