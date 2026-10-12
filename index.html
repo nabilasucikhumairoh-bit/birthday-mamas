@@ -283,14 +283,12 @@ footer { padding:30px 5px; border-top:1px dashed #cbb695; color:#826d58; line-he
   <div class="music">
     <div class="vinyl" id="vinyl">♫</div>
     <p id="songName">A little song for Mamas</p>
-    <label class="small">Pilih lagu dari perangkatmu
-      <input type="file" id="songFile" accept="audio/*">
-    </label>
+   
     <button id="musicButton">Play Music ♫</button>
 <audio id="music" loop preload="none">
   <source src="lagu.mp3" type="audio/mpeg">
 </audio>
-    <p class="small" id="musicStatus">Belum ada lagu yang dipilih.</p>
+  <p class="small" id="musicStatus">Tekan Play Music untuk mendengarkan ♡</p>
   </div>
 </section>
 
@@ -500,45 +498,33 @@ $("letterButton").addEventListener("click",()=>{
   }
 });
 
-// MUSIC: select an audio file on this device
-const music=$("music");
-let songURL="";
-$("songFile").addEventListener("change",function(){
-  const file=this.files[0];
-  if(!file)return;
-  if(songURL)URL.revokeObjectURL(songURL);
-  songURL=URL.createObjectURL(file);
-  music.src=songURL;
-  $("songName").textContent=file.name;
-  $("musicStatus").textContent="Lagu siap diputar dari perangkat ini.";
-  $("musicButton").textContent="Play Music ♫";
-  $("vinyl").classList.remove("playing");
-});
-$("musicButton").addEventListener("click",async()=>{
-  if(!music.src){
-    $("songFile").click();
-    return;
-  }
-  if(music.paused){
-    try{
+
+const music = $("music");
+
+$("musicButton").addEventListener("click", async () => {
+  if (music.paused) {
+    try {
       await music.play();
-      $("musicButton").textContent="Pause Music ♫";
+      $("musicButton").textContent = "Pause Music ♫";
       $("vinyl").classList.add("playing");
-      $("musicStatus").textContent="Sedang memutar lagu ♡";
-    }catch(e){
-      $("musicStatus").textContent="Tidak dapat memutar lagu. Coba pilih file audio lain.";
+      $("musicStatus").textContent = "Sedang memutar lagu ♡";
+    } catch (e) {
+      $("musicStatus").textContent =
+        "Lagu belum bisa diputar. Periksa file lagu.mp3.";
     }
-  }else{
+  } else {
     music.pause();
-    $("musicButton").textContent="Play Music ♫";
+    $("musicButton").textContent = "Play Music ♫";
     $("vinyl").classList.remove("playing");
-    $("musicStatus").textContent="Lagu dijeda.";
+    $("musicStatus").textContent = "Lagu dijeda.";
   }
 });
-music.addEventListener("ended",()=>{
-  $("musicButton").textContent="Play Music ♫";
+
+music.addEventListener("ended", () => {
+  $("musicButton").textContent = "Play Music ♫";
   $("vinyl").classList.remove("playing");
 });
+
 
 // BIRTHDAY CAKE
 $("blowButton").addEventListener("click",()=>{
